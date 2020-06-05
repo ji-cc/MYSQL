@@ -36,6 +36,31 @@
 --                                       发布java程序的常见方式  
 
 
+-- 数据库连接connection
+-- connection 接口实现类由数据库提供，获取connection对象通常有两种方式：
+-- 一种是通过DriverManger（驱动管理类）的静态方法获取：
+-- // 加载JDBC驱动程序
+-- Class.forName("com.mysql.jdbc.Driver");
+-- // 创建数据库连接
+-- Connection connection = DriverManager.getConnection(url);
+-- 一种是通过DataSource（数据源）对象获取。实际应用中会使用DataSource对象。
+-- DataSource ds = new MysqlDataSource();
+-- ((MysqlDataSource) ds).setUrl("jdbc:mysql://localhost:3306/test");
+-- ((MysqlDataSource) ds).setUser("root");
+-- ((MysqlDataSource) ds).setPassword("root");
+-- Connection connection = ds.getConnection();
+
+-- JBDC里面提供了两套API:
+-- 1.创建DataSource对象（准备工作）
+-- 2.基于DataSource对象，创建Connection对象，和数据库建立连接（打开了客户端，输入了密码，连接成功了）
+-- 3.PrepareStatement对象拼装一个具体的SQL语句（客户端中输入了SQL的过程）
+-- 4.拼装好SQL之后，需要执行SQL(客户端中敲下回车，此时SQL就被发到服务器)
+-- 5.查看服务器返回的结果（客户端显示出结果）
+-- 6.关闭连接，释放资源（退出客户端）
+ 
 
 
-
+-- JDBC编程中主要用到的类/对象
+-- 1.DataSource用于配置如何连接MySQL
+-- 2.Connection 表示建立好的一次连接（操作数据库之前需要先建立连接）
+-- 3.PrepareStatement对应到一个SQL语句
